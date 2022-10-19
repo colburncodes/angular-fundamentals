@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CustomerCreateDialogComponent } from './customer-create-dialog/customer-create-dialog.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [CustomerListPageComponent, CustomerCreateDialogComponent],
@@ -21,6 +22,7 @@ import { CustomerCreateDialogComponent } from './customer-create-dialog/customer
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [
     {
