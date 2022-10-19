@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CustomerModule } from './customer/customer.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     MatListModule,
     MatSidenavModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
