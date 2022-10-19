@@ -5,6 +5,7 @@ import { CustomerService } from '../customer.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerCreateDialogComponent } from '../customer-create-dialog/customer-create-dialog.component';
 
+
 @Component({
   selector: 'app-customer-list-page',
   templateUrl: './customer-list-page.component.html',
