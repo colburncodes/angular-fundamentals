@@ -7,6 +7,10 @@ import { Customer } from './customer.model';
 export class CustomerService {
   constructor(private http: HttpClient) {}
 
+  get(customerId: number): Observable<Customer> {
+    return this.http.get<Customer>('/api/customer/' + customerId);
+  }
+
   search(term: string): Observable<Customer[]> {
     return this.http.get<Customer[]>('/api/customer/search?term=' + term);
   }

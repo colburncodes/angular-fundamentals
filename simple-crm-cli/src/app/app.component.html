@@ -7,6 +7,7 @@
   </mat-toolbar>
   <mat-sidenav-container style="flex:1 100%">
     <mat-sidenav #sidenav [opened]="true" [mode]="'side'">
+      <small style="margin: 10px;">Tools</small>
       <mat-nav-list>
         <a mat-list-item matRipple [style.position]="'relative'"
           routerLinkActive="selected" [routerLink]="['/customers']">
@@ -17,6 +18,24 @@
           routerLinkActive="selected" [routerLink]="['.']">
           <mat-icon matListIcon>chat</mat-icon>
           <h4 matLine>Pipeline</h4>
+        </a>
+        <a mat-list-item matRipple [style.position]="'relative'"
+        routerLinkActive="selected" [routerLink]="['.']">
+        <mat-icon matListIcon>list_alt</mat-icon>
+        <h4 matLine>Documents</h4>
+      </a>
+      </mat-nav-list>
+      <small style="margin: 10px;">Other</small>
+      <mat-nav-list>
+        <a mat-list-item matRipple [style.position]="'relative'"
+          routerLinkActive="selected" [routerLink]="['.']">
+          <mat-icon matListIcon>people</mat-icon>
+          <h4 matLine>Candidates</h4>
+        </a>
+        <a mat-list-item matRipple [style.position]="'relative'"
+        routerLinkActive="selected" [routerLink]="['.']">
+        <mat-icon matListIcon>calendar_today</mat-icon>
+        <h4 matLine>Calendar</h4>
         </a>
       </mat-nav-list>
     </mat-sidenav>

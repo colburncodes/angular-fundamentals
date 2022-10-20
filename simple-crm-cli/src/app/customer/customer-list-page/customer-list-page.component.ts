@@ -4,7 +4,7 @@ import { Customer } from '../customer.model';
 import { CustomerService } from '../customer.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerCreateDialogComponent } from '../customer-create-dialog/customer-create-dialog.component';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-list-page',
@@ -14,9 +14,19 @@ import { CustomerCreateDialogComponent } from '../customer-create-dialog/custome
 export class CustomerListPageComponent implements OnInit {
   customers: Customer[] = [];
   dataSource!: MatTableDataSource<Customer>; // The ! tells Angular you know it may be used before it is set.  Try it without to see the error
-  displayColumns = ['name', 'phoneNumber', 'emailAddress', 'statusCode'];
+  displayColumns = [
+    'actions',
+    'name',
+    'phoneNumber',
+    'emailAddress',
+    'statusCode',
+  ];
 
-  constructor(private custServ: CustomerService, public dialog: MatDialog) {
+  constructor(
+    private custServ: CustomerService,
+    public dialog: MatDialog,
+    private router: Router
+  ) {
     this.custServ.search('').subscribe({
       next: (list) => {
         this.customers = list;
@@ -26,6 +36,10 @@ export class CustomerListPageComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  viewDetail(customer: Customer) {
+    this.router.navigate([`/customer/${customer.customerId}`]);
+  }
 
   addCustomer = () => {
     const dialogRef = this.dialog.open(CustomerCreateDialogComponent, {

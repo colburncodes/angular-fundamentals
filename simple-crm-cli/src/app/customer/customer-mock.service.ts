@@ -7,6 +7,7 @@ import { CustomerService } from './customer.service';
 @Injectable()
 export class CustomerMockService extends CustomerService {
   customers: Customer[] = [];
+  lastCustomerId: number;
 
   constructor(httpClient: HttpClient) {
     super(httpClient);
@@ -62,16 +63,26 @@ export class CustomerMockService extends CustomerService {
         },
       ];
     }
+    this.lastCustomerId = Math.max(...this.customers.map((m) => m.customerId));
+  }
+
+  override get(customerId: number): Observable<Customer> {
+    const item = this.customers.find(
+      (x) => x.customerId === customerId
+    ) as Customer;
+    return of(item);
   }
 
   override search(term: string): Observable<Customer[]> {
-    var searchTerm = this.customers.filter(function (customer) {
+    localStorage.setItem('customers', JSON.stringify(this.customers));
+
+    const items = this.customers.filter((customer) => {
       return customer.firstName
         .toLocaleLowerCase()
         .includes(term.toLocaleLowerCase());
     });
 
-    return of(searchTerm);
+    return of(items);
   }
 
   override insert(customer: Customer): Observable<Customer> {
@@ -81,14 +92,20 @@ export class CustomerMockService extends CustomerService {
   }
 
   override update(customer: Customer): Observable<Customer> {
+    const match = this.customers.find(
+      (f) => f.customerId === customer.customerId
+    );
+
+    if (match) {
+      this.customers = this.customers.map((x) =>
+        x.customerId === customer.customerId ? customer : x
+      );
+    } else {
+      this.customers = [...this.customers, customer];
+    }
+
     localStorage.setItem('customers', JSON.stringify(this.customers));
-    this.customers.map((item) => {
-      if (item.customerId == customer.customerId) {
-        customer.firstName = item.firstName;
-        customer.lastName = item.lastName;
-        customer.emailAddress = item.emailAddress;
-      }
-    });
+
     return of(customer);
   }
 }
