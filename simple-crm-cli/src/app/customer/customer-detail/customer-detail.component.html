@@ -1,2 +1,45 @@
-<p>customer-detail works!</p> {{customerId}}
-{{customer | json}}
+<mat-card style="margin: 20px;">
+  <form [formGroup]="detailForm" novalidate>
+    <section fxLayout="row wrap" fxLayoutAlign="space-between">
+      <div fxFlex="48" fxFlex.lt-md="100">
+        <mat-form-field>
+          <mat-label>First Name</mat-label>
+          <input matInput #firstName formControlName="firstName" name="firstName">
+          <mat-error>First name is required.</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="48" fxFlex.lt-md="100">
+        <mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input matInput #lastName formControlName="lastname" name="firstName">
+          <mat-error>Last name is required.</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="48" fxFlex.lt-md="100">
+        <mat-form-field>
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phoneNumber" name="phoneNumber">
+        </mat-form-field>
+      </div>
+      <div fxFlex="48" fxFlex.lt-md="100">
+        <mat-form-field>
+          <mat-label>Email Address</mat-label>
+          <input matInput #emailAddress formControlName="emailAddress" name="emailAddress">
+          <mat-error *ngIf="!emailAddress.value">Email is required.</mat-error>
+          <mat-error *ngIf="!!emailAddress.value">Must be a valid email address.</mat-error>
+        </mat-form-field>
+      </div>
+      <mat-form-field>
+        <mat-select placeholder="Contact Method" formControlName="preferredContactMethod" name="preferredContactMethod">
+          <mat-option value="Email">Email</mat-option>
+          <mat-option value="Phone">Phone</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </section>
+  </form>
+  <mat-dialog-actions>
+    <button mat-raised-button (click)="save()" color="accent">Save</button>
+  </mat-dialog-actions>
+</mat-card>
+
+

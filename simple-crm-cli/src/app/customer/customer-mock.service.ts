@@ -74,13 +74,15 @@ export class CustomerMockService extends CustomerService {
   }
 
   override search(term: string): Observable<Customer[]> {
-    localStorage.setItem('customers', JSON.stringify(this.customers));
+    // localStorage.setItem('customers', JSON.stringify(this.customers));
 
-    const items = this.customers.filter((customer) => {
-      return customer.firstName
-        .toLocaleLowerCase()
-        .includes(term.toLocaleLowerCase());
-    });
+    // const items = this.customers.filter((customer) => {
+    //   return customer.firstName
+    //     .toLocaleLowerCase()
+    //     .includes(term.toLocaleLowerCase());
+    // });
+
+    const items = this.customers;
 
     return of(items);
   }
@@ -105,7 +107,6 @@ export class CustomerMockService extends CustomerService {
     }
 
     localStorage.setItem('customers', JSON.stringify(this.customers));
-
     return of(customer);
   }
 }

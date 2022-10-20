@@ -17,12 +17,18 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
-  declarations: [CustomerListPageComponent, CustomerCreateDialogComponent, CustomerDetailComponent],
+  declarations: [
+    CustomerListPageComponent,
+    CustomerCreateDialogComponent,
+    CustomerDetailComponent,
+  ],
   imports: [
     CommonModule,
     CustomerRoutingModule,
+    FlexLayoutModule,
     MatTableModule,
     MatCardModule,
     MatButtonModule,
@@ -31,6 +37,7 @@ import { CustomerDetailComponent } from './customer-detail/customer-detail.compo
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
   ],
   providers: [
