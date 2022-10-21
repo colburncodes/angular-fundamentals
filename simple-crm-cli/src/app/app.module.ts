@@ -11,6 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { CustomerModule } from './customer/customer.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppIconService } from './app-icon.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,4 +30,6 @@ import { ReactiveFormsModule } from '@angular/forms';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(iconSerice: AppIconService) {}
+}

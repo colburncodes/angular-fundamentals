@@ -59,7 +59,7 @@ export class CustomerDetailComponent implements OnInit {
       },
       error: (err) => {
         // TODO:  show a snackbar message
-        this.sb.open('Error updating customer record', 'OOPS');
+        this.sb.open('Error updating customer record', 'OOPS', err);
       },
     });
   }

@@ -11,14 +11,14 @@
       <div fxFlex="48" fxFlex.lt-md="100">
         <mat-form-field>
           <mat-label>Last Name</mat-label>
-          <input matInput #lastName formControlName="lastname" name="firstName">
+          <input matInput #lastName formControlName="lastName" name="lastName">
           <mat-error>Last name is required.</mat-error>
         </mat-form-field>
       </div>
       <div fxFlex="48" fxFlex.lt-md="100">
         <mat-form-field>
           <mat-label>Phone Number</mat-label>
-          <input matInput formControlName="phoneNumber" name="phoneNumber">
+          <input matInput #phoneNumber formControlName="phoneNumber" name="phoneNumber">
         </mat-form-field>
       </div>
       <div fxFlex="48" fxFlex.lt-md="100">
@@ -30,9 +30,9 @@
         </mat-form-field>
       </div>
       <mat-form-field>
-        <mat-select placeholder="Contact Method" formControlName="preferredContactMethod" name="preferredContactMethod">
-          <mat-option value="Email">Email</mat-option>
-          <mat-option value="Phone">Phone</mat-option>
+        <mat-select placeholder="Contact Method" #preferredContactMethod formControlName="preferredContactMethod" name="preferredContactMethod">
+          <mat-option value="email">Email</mat-option>
+          <mat-option value="phone">Phone</mat-option>
         </mat-select>
       </mat-form-field>
     </section>
