@@ -15,11 +15,12 @@ export class CustomerListPageComponent implements OnInit {
   customers: Customer[] = [];
   dataSource!: MatTableDataSource<Customer>; // The ! tells Angular you know it may be used before it is set.  Try it without to see the error
   displayColumns = [
-    'actions',
     'name',
     'phoneNumber',
     'emailAddress',
     'statusCode',
+    'lastContactDate',
+    'actions',
   ];
 
   constructor(
@@ -37,14 +38,14 @@ export class CustomerListPageComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  viewDetail(customer: Customer) {
-    this.router.navigate([`/customer/${customer.customerId}`]);
+  viewDetail(customer: Customer): void {
+    this.router.navigate(['/customer/', customer.customerId]);
   }
 
   addCustomer = () => {
     const dialogRef = this.dialog.open(CustomerCreateDialogComponent, {
       width: '250px',
-      data: undefined,
+      data: {},
     });
 
     dialogRef.afterClosed().subscribe((result) => {

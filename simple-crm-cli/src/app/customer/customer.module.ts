@@ -43,7 +43,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   providers: [
     {
       provide: CustomerService,
-      useClass: environment.production ? CustomerService : CustomerMockService,
+      useClass: CustomerMockService,
     },
   ],
 })

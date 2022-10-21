@@ -18,23 +18,11 @@ export class CustomerDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private custSvc: CustomerService,
+    private customerService: CustomerService,
     private fb: FormBuilder,
     private sb: MatSnackBar
   ) {
     this.customerId = +this.route.snapshot.params['id'];
-
-    this.custSvc.get(this.customerId).subscribe({
-      next: (c) => {
-        if (c) {
-          this.customer = c;
-          this.detailForm.patchValue(c);
-        }
-      },
-      error: (error) => {
-        // TODO: Handle the error
-      },
-    });
 
     this.detailForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -45,21 +33,33 @@ export class CustomerDetailComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.customerService.get(this.customerId).subscribe({
+      next: (c) => {
+        if (c) {
+          this.customer = c;
+          this.detailForm.patchValue(c);
+        }
+      },
+      error: (error) => {
+        // TODO: Handle the error
+      },
+    });
+  }
 
   save() {
     if (!this.detailForm.valid) {
       return;
     }
     const customer = { ...this.customer, ...this.detailForm.value };
-    this.custSvc.update(customer).subscribe({
+    this.customerService.update(customer).subscribe({
       next: (result) => {
         // TODO: show a snackbar message
         this.sb.open('Customer saved', 'OK');
       },
       error: (err) => {
         // TODO:  show a snackbar message
-        this.sb.open('Customer denied', 'OK');
+        this.sb.open('Error updating customer record', 'OOPS');
       },
     });
   }
