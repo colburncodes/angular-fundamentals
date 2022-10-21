@@ -15,6 +15,7 @@ export class CustomerListPageComponent implements OnInit {
   customers: Customer[] = [];
   dataSource!: MatTableDataSource<Customer>; // The ! tells Angular you know it may be used before it is set.  Try it without to see the error
   displayColumns = [
+    'type',
     'name',
     'phoneNumber',
     'emailAddress',
