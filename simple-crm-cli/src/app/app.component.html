@@ -3,7 +3,7 @@
     <button mat-icon-button matRipple (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
     </button>
-    Simple CRM
+    <span class="content">{{title}}</span>
   </mat-toolbar>
   <mat-sidenav-container style="flex:1 100%">
     <mat-sidenav #sidenav [opened]="true" [mode]="'side'">
