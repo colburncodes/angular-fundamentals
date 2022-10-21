@@ -2,11 +2,13 @@
   <form [formGroup]="detailForm" novalidate>
     <mat-form-field>
       <mat-label>First Name</mat-label>
-      <input matInput formControlName="firstName" name="firstName">
+      <input matInput #firstName formControlName="firstName" name="firstName">
+      <mat-error>First name is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Last Name</mat-label>
-      <input matInput formControlName="lastName" name="lastName">
+      <input matInput #lastName formControlName="lastName" name="lastName">
+      <mat-error>Last name is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Phone Number</mat-label>
@@ -14,7 +16,9 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Email Address</mat-label>
-      <input matInput formControlName="emailAddress" name="emailAddress">
+      <input matInput #emailAddress formControlName="emailAddress" name="emailAddress">
+      <mat-error *ngIf="!emailAddress.value">Email is required.</mat-error>
+      <mat-error *ngIf="!!emailAddress.value">Must be a valid email address.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-select placeholder="Contact Method" formControlName="preferredContactMethod" name="preferredContactMethod">

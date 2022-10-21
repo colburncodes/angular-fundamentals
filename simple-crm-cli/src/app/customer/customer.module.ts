@@ -13,15 +13,22 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { CustomerCreateDialogComponent } from './customer-create-dialog/customer-create-dialog.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
-  declarations: [CustomerListPageComponent, CustomerCreateDialogComponent],
+  declarations: [
+    CustomerListPageComponent,
+    CustomerCreateDialogComponent,
+    CustomerDetailComponent,
+  ],
   imports: [
     CommonModule,
     CustomerRoutingModule,
+    FlexLayoutModule,
     MatTableModule,
     MatCardModule,
     MatButtonModule,
@@ -30,12 +37,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
   ],
   providers: [
     {
       provide: CustomerService,
-      useClass: environment.production ? CustomerService : CustomerMockService,
+      useClass: CustomerMockService,
     },
   ],
 })
