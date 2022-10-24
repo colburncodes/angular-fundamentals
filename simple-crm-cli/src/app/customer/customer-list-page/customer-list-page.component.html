@@ -8,13 +8,20 @@
     </button>
   </mat-card-title>
 
-  <table mat-table [dataSource]="dataSource" style="width: 100%;">
+  <form class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Search Customer</mat-label>
+      <input matInput [formControl]="filterInputStr" type="text" placeholder="Search Customer" value="filterInputStr">
+    </mat-form-field>
+  </form>
+
+
+  <table mat-table [dataSource]="(customers$ | async) || []" style="width: 100%;">
     <ng-container matColumnDef="type">
       <!-- The matColumnDef value above must match a name in the displayColumns array  -->
       <th mat-header-cell *matHeaderCellDef> Type </th>
       <td mat-cell *matCellDef="let row"> {{row.type}} </td>
     </ng-container>
-
 
     <ng-container matColumnDef="name">
       <!-- The matColumnDef value above must match a name in the displayColumns array  -->
@@ -62,3 +69,5 @@
     <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
   </table>
 </mat-card>
+
+

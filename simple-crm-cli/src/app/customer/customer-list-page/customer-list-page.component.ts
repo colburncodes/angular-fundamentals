@@ -5,6 +5,16 @@ import { CustomerService } from '../customer.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerCreateDialogComponent } from '../customer-create-dialog/customer-create-dialog.component';
 import { Router } from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest,
+  debounceTime,
+  Observable,
+  shareReplay,
+  startWith,
+  switchMap,
+} from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-list-page',
@@ -12,8 +22,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./customer-list-page.component.scss'],
 })
 export class CustomerListPageComponent implements OnInit {
-  customers: Customer[] = [];
-  dataSource!: MatTableDataSource<Customer>; // The ! tells Angular you know it may be used before it is set.  Try it without to see the error
+  customers$: Observable<Customer[]>;
+  filterInputStr = new FormControl('');
   displayColumns = [
     'type',
     'name',
@@ -23,21 +33,28 @@ export class CustomerListPageComponent implements OnInit {
     'lastContactDate',
     'actions',
   ];
+  reload$ = new BehaviorSubject<number>(0);
 
   constructor(
     private custServ: CustomerService,
     public dialog: MatDialog,
     private router: Router
   ) {
-    this.custServ.search('').subscribe({
-      next: (list) => {
-        this.customers = list;
-      },
-    });
-    this.dataSource = new MatTableDataSource(this.customers);
+    this.customers$ = combineLatest([
+      this.filterInputStr.valueChanges.pipe(startWith('')),
+      this.reload$,
+    ]).pipe(
+      debounceTime(200),
+      switchMap(([input]) => this.custServ.search(input)),
+      shareReplay()
+    );
   }
 
   ngOnInit(): void {}
+
+  search() {
+    this.reload$.next(this.reload$.value + 1);
+  }
 
   viewDetail(customer: Customer): void {
     this.router.navigate(['/customer/', customer.customerId]);
