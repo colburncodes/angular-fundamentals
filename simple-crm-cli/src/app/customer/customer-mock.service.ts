@@ -74,17 +74,13 @@ export class CustomerMockService extends CustomerService {
   }
 
   override search(term: string): Observable<Customer[]> {
-    // localStorage.setItem('customers', JSON.stringify(this.customers));
+    let result = this.customers.filter((customer) => {
+      return customer.firstName
+        .toLocaleLowerCase()
+        .includes(term.toLocaleLowerCase());
+    });
 
-    // const items = this.customers.filter((customer) => {
-    //   return customer.firstName
-    //     .toLocaleLowerCase()
-    //     .includes(term.toLocaleLowerCase());
-    // });
-
-    const items = this.customers;
-
-    return of(items);
+    return of(result);
   }
 
   override insert(customer: Customer): Observable<Customer> {
