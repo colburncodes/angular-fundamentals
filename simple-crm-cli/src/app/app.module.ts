@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppIconService } from './app-icon.service';
 import { NotAuthorizedComponent } from './account/not-authorized/not-authorized.component';
+import { StoreModule } from '@ngrx/store';
+import { layoutFeatureKey, layoutReducer } from './store/layout.store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +30,11 @@ import { NotAuthorizedComponent } from './account/not-authorized/not-authorized.
     MatListModule,
     MatSidenavModule,
     ReactiveFormsModule,
+    StoreModule.forRoot({}),
+    StoreModule.forFeature(layoutFeatureKey, layoutReducer),
+    StoreDevtoolsModule.instrument({
+      name: 'Nexul Academy - Simple CRM',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
