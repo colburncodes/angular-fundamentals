@@ -12,6 +12,7 @@ import { CustomerModule } from './customer/customer.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppIconService } from './app-icon.service';
+import { NotAuthorizedComponent } from './account/not-authorized/not-authorized.component';
 
 @NgModule({
   declarations: [AppComponent],
