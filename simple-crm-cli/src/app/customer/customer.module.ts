@@ -20,7 +20,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StatusIconPipe } from './status-icon.pipe';
 import { EffectsModule } from '@ngrx/effects';
-import { CustomerStoreEffects } from '../store/customer.store.effects';
+import { CustomerStoreEffects } from '../store/customer-store/customer.store.effects';
 import { StoreModule } from '@ngrx/store';
 import {
   customerFeatureKey,
