@@ -6,12 +6,12 @@ import { CustomerListPageComponent } from './customer-list-page/customer-list-pa
 
 const routes: Routes = [
   {
-    path: 'customers',
+    path: '',
     pathMatch: 'full',
     component: CustomerListPageComponent,
   },
   {
-    path: 'customer/:id',
+    path: ':id',
     pathMatch: 'full',
     component: CustomerDetailComponent,
     canActivate: [AuthenticatedGuard],

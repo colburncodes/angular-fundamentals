@@ -22,11 +22,9 @@ import { StatusIconPipe } from './status-icon.pipe';
 import { EffectsModule } from '@ngrx/effects';
 import { CustomerStoreEffects } from '../store/customer-store/customer.store.effects';
 import { StoreModule } from '@ngrx/store';
-import {
-  customerFeatureKey,
-  customerReducer,
-} from '../store/customer-store/customer.store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { customerFeatureKey } from '../store/customer-store/customer.store.selector';
+import { customerReducer } from '../store/customer-store/customer.store';
+
 @NgModule({
   declarations: [
     CustomerListPageComponent,

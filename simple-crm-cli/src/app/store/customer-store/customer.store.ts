@@ -1,11 +1,7 @@
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createAction, createReducer, on, props } from '@ngrx/store';
 import { Customer } from 'src/app/customer/customer.model';
-import {
-  CustomerSearchCriteria,
-  CustomerState,
-  customerStateAdapter,
-  initialCustomerState,
-} from './customer.store.model';
+import { CustomerSearchCriteria, SearchStatus } from './customer.store.model';
 
 export const customerSearchAction = createAction(
   '[CUSTOMERS] Search Start',
@@ -17,7 +13,21 @@ export const customersSearchCompleteAction = createAction(
   props<{ result: Customer[] }>()
 );
 
-export const customerFeatureKey = 'customer';
+export interface CustomerState extends EntityState<Customer> {
+  searchStatus: SearchStatus;
+  criteria: CustomerSearchCriteria;
+}
+
+export const customerStateAdapter: EntityAdapter<Customer> =
+  createEntityAdapter<Customer>({
+    selectId: (item: Customer) => item.customerId,
+  });
+
+export const initialCustomerState: CustomerState =
+  customerStateAdapter.getInitialState({
+    searchStatus: '',
+    criteria: { term: '' },
+  });
 
 const rawCustomerReducer = createReducer(
   initialCustomerState,

@@ -8,7 +8,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { CustomerModule } from './customer/customer.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppIconService } from './app-icon.service';
@@ -22,7 +21,6 @@ import { EffectsModule } from '@ngrx/effects';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CustomerModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MatToolbarModule,

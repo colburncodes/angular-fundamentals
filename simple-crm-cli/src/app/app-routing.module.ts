@@ -9,6 +9,11 @@ const routes: Routes = [
     redirectTo: 'customers',
   },
   {
+    path: 'customers',
+    loadChildren: () =>
+      import('./customer/customer.module').then((mod) => mod.CustomerModule),
+  },
+  {
     path: 'not-authorized',
     pathMatch: 'full',
     component: NotAuthorizedComponent,

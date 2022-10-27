@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Customer } from '../customer.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerCreateDialogComponent } from '../customer-create-dialog/customer-create-dialog.component';
@@ -12,12 +12,12 @@ import {
 } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { CustomerSearchCriteria } from 'src/app/store/customer-store/customer.store.model';
+import { selectAllCustomers } from 'src/app/store/customer-store/customer.store.selector';
 import {
-  CustomerSearchCriteria,
+  customerSearchAction,
   CustomerState,
-  selectAllCustomers,
-} from 'src/app/store/customer-store/customer.store.model';
-import { customerSearchAction } from 'src/app/store/customer-store/customer.store';
+} from 'src/app/store/customer-store/customer.store';
 
 @Component({
   selector: 'app-customer-list-page',
@@ -25,6 +25,7 @@ import { customerSearchAction } from 'src/app/store/customer-store/customer.stor
   styleUrls: ['./customer-list-page.component.scss'],
 })
 export class CustomerListPageComponent implements OnInit {
+  @Input() title: string;
   customers$: Observable<Customer[]>;
   filterInputStr = new FormControl('');
   displayColumns = [
@@ -41,8 +42,10 @@ export class CustomerListPageComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private store: Store<CustomerState>
+    private store: Store<CustomerState>,
+    private cdr: ChangeDetectorRef
   ) {
+    this.title = 'Hi';
     this.customers$ = this.store.select(selectAllCustomers);
     combineLatest([
       this.filterInputStr.valueChanges.pipe(startWith('')),
@@ -57,7 +60,7 @@ export class CustomerListPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.search();
+    //this.search();
   }
 
   search() {
@@ -66,7 +69,7 @@ export class CustomerListPageComponent implements OnInit {
   }
 
   viewDetail(customer: Customer): void {
-    this.router.navigate(['/customer/', customer.customerId]);
+    this.router.navigate(['/customers/', customer.customerId]);
   }
 
   addCustomer = () => {

@@ -1,5 +1,5 @@
-import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
-import { Customer } from 'src/app/customer/customer.model';
+// import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
+// import { Customer } from 'src/app/customer/customer.model';
 
-export const adaptor: EntityAdapter<Customer[]> =
-  createEntityAdapter<Customer[]>();
+// export const adaptor: EntityAdapter<Customer[]> =
+//   createEntityAdapter<Customer[]>();
