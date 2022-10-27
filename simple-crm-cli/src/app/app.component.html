@@ -1,12 +1,12 @@
 <div style="height:100vh; display:flex; flex-direction:column;">
   <mat-toolbar color="primary">
-    <button mat-icon-button matRipple (click)="sidenav.toggle()">
+    <button mat-icon-button matRipple (click)="sideNavToggle()">
         <mat-icon>menu</mat-icon>
     </button>
     <span class="content">{{title}}</span>
   </mat-toolbar>
   <mat-sidenav-container style="flex:1 100%">
-    <mat-sidenav #sidenav [opened]="true" [mode]="'side'">
+    <mat-sidenav #sidenav [opened]="showSideNav$ | async" [mode]="'side'">
       <small style="margin: 10px;">Tools</small>
       <mat-nav-list>
         <a mat-list-item matRipple [style.position]="'relative'"
@@ -39,8 +39,7 @@
         </a>
       </mat-nav-list>
     </mat-sidenav>
-    Some content
-    <button (click)="sidenav.toggle()">Toggle</button>
+    <!-- <button (click)="sideNavToggle()">Toggle</button> -->
     <router-outlet></router-outlet>
   </mat-sidenav-container>
   <div class="footer">
