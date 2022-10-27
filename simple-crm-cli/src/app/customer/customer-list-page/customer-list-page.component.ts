@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { Customer } from '../customer.model';
-import { CustomerService } from '../customer.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerCreateDialogComponent } from '../customer-create-dialog/customer-create-dialog.component';
 import { Router } from '@angular/router';
@@ -10,11 +8,16 @@ import {
   combineLatest,
   debounceTime,
   Observable,
-  shareReplay,
   startWith,
-  switchMap,
 } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import {
+  CustomerSearchCriteria,
+  CustomerState,
+  selectAllCustomers,
+} from 'src/app/store/customer-store/customer.store.model';
+import { customerSearchAction } from 'src/app/store/customer-store/customer.store';
 
 @Component({
   selector: 'app-customer-list-page',
@@ -36,24 +39,30 @@ export class CustomerListPageComponent implements OnInit {
   reload$ = new BehaviorSubject<number>(0);
 
   constructor(
-    private custServ: CustomerService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private store: Store<CustomerState>
   ) {
-    this.customers$ = combineLatest([
+    this.customers$ = this.store.select(selectAllCustomers);
+    combineLatest([
       this.filterInputStr.valueChanges.pipe(startWith('')),
       this.reload$,
-    ]).pipe(
-      debounceTime(200),
-      switchMap(([input]) => this.custServ.search(input)),
-      shareReplay()
-    );
+    ])
+      .pipe(debounceTime(200))
+      .subscribe(([input]) => {
+        return this.store.dispatch(
+          customerSearchAction({ criteria: { term: input } })
+        );
+      });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.search();
+  }
 
   search() {
-    this.reload$.next(this.reload$.value + 1);
+    const criteria: CustomerSearchCriteria = { term: '' };
+    this.store.dispatch(customerSearchAction({ criteria }));
   }
 
   viewDetail(customer: Customer): void {

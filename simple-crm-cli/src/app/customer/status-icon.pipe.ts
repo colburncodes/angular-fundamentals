@@ -4,16 +4,12 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'statusIcon',
 })
 export class StatusIconPipe implements PipeTransform {
-  transform(value: unknown, ...args: unknown[]): string {
-    if (value === 'prospect' || value === '') {
+  transform(value: string | null | undefined, ...args: unknown[]): string {
+    if (value === 'prospect') {
       return 'online';
-    } else if (value === 'purchased' || value === null) {
-      return 'money';
-    } else if (value == null) {
-      return 'users';
     }
 
     // TODO: check other statuses and have a fallback icon name
-    return '';
+    return 'users';
   }
 }
