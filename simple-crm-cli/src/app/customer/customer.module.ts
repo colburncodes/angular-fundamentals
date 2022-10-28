@@ -24,6 +24,7 @@ import { CustomerStoreEffects } from '../store/customer-store/customer.store.eff
 import { StoreModule } from '@ngrx/store';
 import { customerReducer } from '../store/customer-store/customer.store';
 import { customerFeatureKey } from '../store/customer-store/customer.store.model';
+import { CustomerListTableComponent } from './customer-list-table/customer-list-table.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { customerFeatureKey } from '../store/customer-store/customer.store.model
     CustomerCreateDialogComponent,
     CustomerDetailComponent,
     StatusIconPipe,
+    CustomerListTableComponent,
   ],
   imports: [
     CommonModule,
