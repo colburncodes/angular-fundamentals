@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Customer } from '../customer.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerCreateDialogComponent } from '../customer-create-dialog/customer-create-dialog.component';
@@ -24,6 +30,7 @@ import { selectCustomers } from 'src/app/store/customer-store/customer.store.sel
   selector: 'app-customer-list-page',
   templateUrl: './customer-list-page.component.html',
   styleUrls: ['./customer-list-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomerListPageComponent implements OnInit {
   customers$: Observable<Customer[]>;
@@ -39,12 +46,7 @@ export class CustomerListPageComponent implements OnInit {
   ];
   reload$ = new BehaviorSubject<number>(0);
 
-  constructor(
-    public dialog: MatDialog,
-    private router: Router,
-    private store: Store<CustomerState>,
-    private cdr: ChangeDetectorRef
-  ) {
+  constructor(public dialog: MatDialog, private store: Store<CustomerState>) {
     this.customers$ = this.store.select(selectCustomers);
     combineLatest([
       this.filterInputStr.valueChanges.pipe(startWith('')),
@@ -59,7 +61,7 @@ export class CustomerListPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.search();
+    this.search();
   }
 
   search() {
@@ -67,9 +69,9 @@ export class CustomerListPageComponent implements OnInit {
     this.store.dispatch(customerSearchAction({ criteria }));
   }
 
-  viewDetail(customer: Customer): void {
-    this.router.navigate(['/customers/', customer.customerId]);
-  }
+  // viewDetail(customer: Customer): void {
+  //   this.router.navigate(['/customers/', customer.customerId]);
+  // }
 
   addCustomer = () => {
     const dialogRef = this.dialog.open(CustomerCreateDialogComponent, {
