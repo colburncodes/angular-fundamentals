@@ -31,7 +31,6 @@ import { EffectsModule } from '@ngrx/effects';
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}),
     StoreModule.forFeature(layoutFeatureKey, layoutReducer),
-    //StoreModule.forFeature(customerFeatureKey, customerReducer),
     StoreDevtoolsModule.instrument({
       name: 'Nexul Academy - Simple CRM',
     }),

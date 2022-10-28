@@ -1,5 +1,5 @@
 <mat-card style="margin: 20px;">
-  <table mat-table [dataSource]="(customers) || []" style="width: 100%;">
+  <table mat-table [dataSource]="(customers) || []" [trackBy]="trackByCustomerId" style="width: 100%;">
     <ng-container matColumnDef="type">
       <!-- The matColumnDef value above must match a name in the displayColumns array  -->
       <th mat-header-cell *matHeaderCellDef> Type </th>

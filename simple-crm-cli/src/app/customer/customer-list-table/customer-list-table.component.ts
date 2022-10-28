@@ -36,4 +36,8 @@ export class CustomerListTableComponent implements OnInit {
     // this.router.navigate(['/customers/', customer.customerId]);
     this.openCustomer.emit(customer);
   }
+
+  trackByCustomerId(index: number, item: Customer) {
+    return item.customerId;
+  }
 }
