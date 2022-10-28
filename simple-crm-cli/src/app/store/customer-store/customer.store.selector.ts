@@ -1,19 +1,13 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { CustomerState, customerStateAdapter } from './customer.store';
+import { CustomerState } from './customer.store';
+import {
+  customerFeatureKey,
+  customerStateAdapter,
+} from './customer.store.model';
 
-export const {
-  selectAll: selectAllCustomers,
-  selectEntities: selectCustomerEntities,
-  selectIds: selectCustomerIds,
-  selectTotal: selectCustomerTotal,
-} = customerStateAdapter.getSelectors();
+const { selectAll } = customerStateAdapter.getSelectors();
 
-export const customerFeatureKey = 'customer';
-
-export const getCustomerFeature =
+const getCustomerFeature =
   createFeatureSelector<CustomerState>(customerFeatureKey);
 
-export const selectCustomers = createSelector(
-  getCustomerFeature,
-  selectAllCustomers
-);
+export const selectCustomers = createSelector(getCustomerFeature, selectAll);
