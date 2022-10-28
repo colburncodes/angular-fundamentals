@@ -22,7 +22,6 @@ export class CustomerStoreEffects {
       ofType(customerSearchAction),
       switchMap(({ criteria }) => {
         return this.customerService.search(criteria.term).pipe(
-          tap((data) => console.log(data)),
           map((data) => {
             return customersSearchCompleteAction({ result: data });
           }),

@@ -12,12 +12,13 @@ import {
 } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { CustomerSearchCriteria } from 'src/app/store/customer-store/customer.store.model';
-import { selectAllCustomers } from 'src/app/store/customer-store/customer.store.selector';
+import { customerSearchCriteria } from 'src/app/store/customer-store/customer.store.model';
+
 import {
   customerSearchAction,
   CustomerState,
 } from 'src/app/store/customer-store/customer.store';
+import { selectCustomers } from 'src/app/store/customer-store/customer.store.selector';
 
 @Component({
   selector: 'app-customer-list-page',
@@ -25,7 +26,6 @@ import {
   styleUrls: ['./customer-list-page.component.scss'],
 })
 export class CustomerListPageComponent implements OnInit {
-  @Input() title: string;
   customers$: Observable<Customer[]>;
   filterInputStr = new FormControl('');
   displayColumns = [
@@ -45,8 +45,7 @@ export class CustomerListPageComponent implements OnInit {
     private store: Store<CustomerState>,
     private cdr: ChangeDetectorRef
   ) {
-    this.title = 'Hi';
-    this.customers$ = this.store.select(selectAllCustomers);
+    this.customers$ = this.store.select(selectCustomers);
     combineLatest([
       this.filterInputStr.valueChanges.pipe(startWith('')),
       this.reload$,
@@ -64,7 +63,7 @@ export class CustomerListPageComponent implements OnInit {
   }
 
   search() {
-    const criteria: CustomerSearchCriteria = { term: '' };
+    const criteria: customerSearchCriteria = { term: '' };
     this.store.dispatch(customerSearchAction({ criteria }));
   }
 
